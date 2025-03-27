@@ -1,5 +1,15 @@
+import Header from "./components/Layout/Header";
+import Products from "./components/Products/Products";
+
 const App = () => {
-  return <h1 className="text-light bg-dark">I'm The Generic Ecommerce Website</h1>
+  return (
+    <>
+      <Header />
+      <main>
+        <Products />
+      </main>
+    </>
+  )
 }
 
 export default App;
