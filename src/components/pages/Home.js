@@ -1,21 +1,46 @@
-import { Container } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Container, Row } from "react-bootstrap";
 
 import Header from "../Layout/Header";
+import MoviesCard from "../UI/MoviesCard";
 
 const Home = () => {
+
+    const [movies, setMovies] = useState([]);
+
+    const fetchMovies = async () => {
+        const json = await fetch("https://swapi.dev/api/films");
+        const moviesData = await json.json();
+        const transformData = moviesData.results.map(movie => {
+            return {
+                id: movie.episode_id,
+                title: movie.title,
+                summary: movie.opening_crawl,
+                director: movie.director,
+                release: movie.release_date
+            }
+        });
+        setMovies(transformData);
+    }
+
     return (
         <>
             <Header />
             <main>
                 <Container>
-                    <div className="bg-secondary-subtle">
-                        <p className="p-5 fs-1 fw-bold text-center">The Generics</p>
+                    <div className="p-5 bg-secondary-subtle">
+                        <p className="p-3 fs-1 fw-bold text-center">The Generics</p>
+                        <Button className="d-block m-auto" onClick={fetchMovies}>Fetch Movies</Button>
                     </div>
-                    <h1 className="py-3">Home Page</h1>
-                    <div className="pb-3">
-                        Lorem ipsum carrots enhanced rebates. Excellent sayings of a man of sorrows, hates no prosecutors will unfold in the enduring of which were born in it? Often leads smallest mistake some pain main responsibilities are to stand for the right builder of pleasure, accepted explain up to now. , The things we are accusing of these in the explication of the truth receives from the flattery of her will never be the trouble and they are refused to the pleasures and the pleasures of the pain, explain the treatment of excepturi of the blessed sufferings. I never said will unfold in him receives at another time he may please the one that those works, we are less than they, this refused to the pleasures of deleniti? Those are! Will unfold in times of pleasure, this pain will be a right enjoyed by corrupt, are accusing him of all pleasures, and seek his own, or, to the needs of the agony of the choice. We hate the fellow.
-                        Lorem ipsum dolor, sit amet consectetur rebates. The distinction, that arise from or to. The greater, therefore, an obstacle to the duties of the debts receives the very great importance to us that these are consequent to that question is answered, which was selected for the fault, it is often one of us, however, have any! Moreover, this is often not at once take the hardships of the life of harsh condemn, we are accusing him? Him whom something large cisterns.
-                    </div>
+                    <h1 className="py-3">Movies Page</h1>
+                    <Row xs={1} md={2} className="g-4">
+                        {console.log(movies)}
+                        {
+                            movies.map(movie => (
+                                <MoviesCard key={movie.id} movie={movie} />
+                            ))
+                        }
+                    </Row>
                 </Container>
             </main> 
         </>
