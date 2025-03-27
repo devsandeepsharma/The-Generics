@@ -1,38 +1,23 @@
 import { Button, Card } from "react-bootstrap";
 import CartModal from "../UI/CartModal"
+import { useContext } from "react";
 
-const productsArr = [
-    {
-        title: 'Colors',
-        price: 100,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-    },
-    {
-        title: 'Black and white Colors',
-        price: 50,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-    },
-    {
-        title: 'Yellow and Black Colors',
-        price: 70,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-    },
-    {
-        title: 'Blue Color',
-        price: 100,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-    }
-]
+import CartContext from "../../store/CartContext";
 
 const Cart = (props) => {
+
+    const {products, removeProducts} = useContext(CartContext);
+    const totalCount = products.reduce((total, product) => total += product.quantity, 0)
+
     return (
         <CartModal 
             show={props.show}
             onHide={props.onHide}
         >
+            {products.length <= 0 && <h2>Please add items to the Cart.</h2>}
               {
-                productsArr.map(product => (
-                    <Card className="p-2">
+                products.map(product => (
+                    <Card className="p-2" key={product.title}>
                         <div className="d-flex align-items-center">
                             <Card.Img 
                                 variant="left" 
@@ -42,10 +27,13 @@ const Cart = (props) => {
                             />
                             <Card.Body>
                                 <Card.Title>{product.title}</Card.Title>
-                                <Card.Text>Rs {product.price}/-</Card.Text>
+                                <Card.Text>
+                                    Rs {product.price}/-
+                                    <p>Count: {totalCount}</p>
+                                </Card.Text>
                             </Card.Body>
                             <Card.Footer style={{ background: "transparent", border: "none" }}>
-                                <Button variant="danger" size="sm">Remove</Button>
+                                <Button variant="danger" size="sm" onClick={() => {removeProducts(product)}}>Remove</Button>
                             </Card.Footer>
                         </div>
                     </Card>

@@ -1,6 +1,14 @@
+import { useContext } from "react";
 import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
 
+import CartContext from "../../store/CartContext";
+
 const Header = (props) => {
+
+    const {products} = useContext(CartContext);
+
+    const totalCount = products.reduce((total, product) => total += product.quantity, 0)
+
     return (
         <Navbar expand="lg" bg="dark" data-bs-theme="dark" >
             <Container>
@@ -10,7 +18,7 @@ const Header = (props) => {
                     onClick={props.onClick} 
                     className="d-lg-none me-2"
                 >
-                    Cart <Badge bg="secondary">4</Badge>
+                    Cart <Badge bg="secondary">{totalCount}</Badge>
                 </Button>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -28,7 +36,7 @@ const Header = (props) => {
                         onClick={props.onClick} 
                         className="d-none d-lg-block ms-lg-auto"
                     >
-                        Cart <Badge bg="secondary">4</Badge>
+                        Cart <Badge bg="secondary">{totalCount}</Badge>
                     </Button>
                 </Navbar.Collapse>
             </Container>
