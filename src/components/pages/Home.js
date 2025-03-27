@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 
 import Header from "../Layout/Header";
@@ -8,23 +8,46 @@ const Home = () => {
 
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [retrying, setRetrying] = useState(true);
 
     const fetchMovies = async () => {
         setLoading(true)
-        const json = await fetch("https://swapi.dev/api/films");
-        const moviesData = await json.json();
-        const transformData = moviesData.results.map(movie => {
-            return {
-                id: movie.episode_id,
-                title: movie.title,
-                summary: movie.opening_crawl,
-                director: movie.director,
-                release: movie.release_date
+        setError(null);
+        try {
+            const res = await fetch("https://swapi.dev/api/films");
+
+            if(!res.ok) {
+                throw new Error("Something went wrong ....");
             }
-        });
-        setMovies(transformData);
+
+            const moviesData = await res.json();
+            const transformData = moviesData.results.map(movie => {
+                return {
+                    id: movie.episode_id,
+                    title: movie.title,
+                    summary: movie.opening_crawl,
+                    director: movie.director,
+                    release: movie.release_date
+                }
+            });
+            setMovies(transformData);
+        } catch (error) {
+            setError(error.message);
+            setRetrying(true);
+        }
         setLoading(false)
     }
+
+    useEffect(() => {
+        if (error && retrying) {
+            const retryTimeout = setTimeout(() => {
+                fetchMovies();
+            }, 5000);
+
+            return () => clearTimeout(retryTimeout); 
+        }
+    }, [error, retrying]);
 
     return (
         <>
@@ -38,6 +61,22 @@ const Home = () => {
                     <h1 className="py-3">Movies Page</h1>
                     <Row xs={1} md={2} className="g-4">
                         {loading && <h2>Loading...</h2>}
+                        {error && (
+                            <div>
+                                <p className="fs-4">
+                                    {error} <span className="fw-bold">{retrying ? "Retrying..." : "Stopped"}</span>
+                                </p>
+                                {retrying && (
+                                    <Button
+                                        className="mt-2"
+                                        variant="dark"
+                                        onClick={() => setRetrying(false)}
+                                    >
+                                        Stop Retrying
+                                    </Button>
+                                )}
+                            </div>
+                        )}
                         {
                             movies.map(movie => (
                                 <MoviesCard key={movie.id} movie={movie} />
