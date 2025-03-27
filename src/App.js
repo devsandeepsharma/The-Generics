@@ -1,28 +1,31 @@
-import { useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Cart from "./components/Cart/Cart";
-import Header from "./components/Layout/Header";
-import Products from "./components/Products/Products";
+import Store from "./components/pages/Store";
+import About from "./components/pages/About";
+
 import CartContextProvider from "./store/CartContextProvider";
 
+
 const App = () => {
-  const [handleCartShow, setHandleCartShow] = useState(false);
 
-  const showCart = () => {
-    setHandleCartShow(true);
-  }
-
-  const hideCart = () => {
-    setHandleCartShow(false);
-  }
-
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <h1>I'm Home Page</h1>
+    }, 
+    {
+      path: "/store",
+      element: <Store />
+    }, 
+    {
+      path: "/about",
+      element: <About />
+    }
+  ])
+  
   return (
     <CartContextProvider>
-      {handleCartShow && <Cart show={showCart} onHide={hideCart} />}
-      <Header onClick={showCart} />
-      <main>
-        <Products />
-      </main>
+      <RouterProvider router={router} />
     </CartContextProvider>
   )
 }

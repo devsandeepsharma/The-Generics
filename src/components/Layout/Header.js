@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
 
 import CartContext from "../../store/CartContext";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = (props) => {
 
@@ -27,9 +28,9 @@ const Header = (props) => {
                         style={{ maxHeight: '300px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Store</Nav.Link>
-                        <Nav.Link href="#action2">About</Nav.Link>
+                        <Nav.Link as={NavLink} to="/">Home</Nav.Link>
+                        <Nav.Link as={NavLink} to="/store">Store</Nav.Link>
+                        <Nav.Link as={NavLink} to="/about">About</Nav.Link>
                     </Nav>
                     <Button 
                         variant="light" 
