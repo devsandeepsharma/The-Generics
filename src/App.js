@@ -1,10 +1,24 @@
+import { useState } from "react";
+
+import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
 import Products from "./components/Products/Products";
 
 const App = () => {
+  const [handleCartShow, setHandleCartShow] = useState(false);
+
+  const showCart = () => {
+    setHandleCartShow(true);
+  }
+
+  const hideCart = () => {
+    setHandleCartShow(false);
+  }
+
   return (
     <>
-      <Header />
+      {handleCartShow && <Cart show={showCart} onHide={hideCart} />}
+      <Header onClick={showCart} />
       <main>
         <Products />
       </main>
