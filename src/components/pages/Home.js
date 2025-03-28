@@ -16,22 +16,26 @@ const Home = () => {
         setLoading(true)
         setError(null);
         try {
-            const res = await fetch("https://swapi.dev/api/films");
+            const res = await fetch("https://myecommerse-3e28e-default-rtdb.europe-west1.firebasedatabase.app/movies.json");
 
             if(!res.ok) {
                 throw new Error("Something went wrong ....");
             }
 
             const moviesData = await res.json();
-            const transformData = moviesData.results.map(movie => {
-                return {
-                    id: movie.episode_id,
-                    title: movie.title,
-                    summary: movie.opening_crawl,
-                    release: movie.release_date
-                }
-            });
-            setMovies(transformData);
+
+            const fetchedData = [];
+
+            for(const key in moviesData) {
+                fetchedData.push({
+                    id: key,
+                    title: moviesData[key].title,
+                    summary: moviesData[key].openingText,
+                    release: moviesData[key].releaseDate
+                })
+            }
+
+            setMovies(fetchedData);
         } catch (error) {
             setError(error.message);
             setRetrying(true);

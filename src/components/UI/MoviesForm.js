@@ -8,7 +8,22 @@ const MoviesForm = () => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log(title, openingText, releaseDate);
+        if(title === "" || openingText === "" || releaseDate === "") {
+            return;
+        }
+
+        addMovies({title, openingText, releaseDate});
+        setTitle("");
+        setOpeningText("");
+        setReleaseDate("");
+    }
+
+    const addMovies = async (movie) => {
+        const res = await fetch("https://myecommerse-3e28e-default-rtdb.europe-west1.firebasedatabase.app/movies.json", {
+            method: "POST",
+            body: JSON.stringify(movie),
+        })
+        console.log(res);
     }
 
     return (
