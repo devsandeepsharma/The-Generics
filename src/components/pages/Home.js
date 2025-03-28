@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 
 import Header from "../Layout/Header";
@@ -11,7 +11,7 @@ const Home = () => {
     const [error, setError] = useState(null);
     const [retrying, setRetrying] = useState(true);
 
-    const fetchMovies = async () => {
+    const fetchMovies = useCallback( async () => {
         setLoading(true)
         setError(null);
         try {
@@ -37,17 +37,20 @@ const Home = () => {
             setRetrying(true);
         }
         setLoading(false)
-    }
+    }, []);
 
     useEffect(() => {
         if (error && retrying) {
             const retryTimeout = setTimeout(() => {
                 fetchMovies();
             }, 5000);
-
             return () => clearTimeout(retryTimeout); 
         }
     }, [error, retrying]);
+
+    useEffect(() => {
+        fetchMovies();
+    }, []);
 
     return (
         <>
