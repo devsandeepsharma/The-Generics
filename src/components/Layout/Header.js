@@ -31,6 +31,7 @@ const Header = (props) => {
                         <Nav.Link as={NavLink} to="/">Home</Nav.Link>
                         <Nav.Link as={NavLink} to="/store">Store</Nav.Link>
                         <Nav.Link as={NavLink} to="/about">About</Nav.Link>
+                        <Nav.Link as={NavLink} to="/contact">Contact US</Nav.Link>
                     </Nav>
                     <Button 
                         variant="light" 
