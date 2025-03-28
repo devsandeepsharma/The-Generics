@@ -3,6 +3,7 @@ import { Button, Container, Row } from "react-bootstrap";
 
 import Header from "../Layout/Header";
 import MoviesCard from "../UI/MoviesCard";
+import MoviesForm from "../UI/MoviesForm";
 
 const Home = () => {
 
@@ -27,7 +28,6 @@ const Home = () => {
                     id: movie.episode_id,
                     title: movie.title,
                     summary: movie.opening_crawl,
-                    director: movie.director,
                     release: movie.release_date
                 }
             });
@@ -57,6 +57,7 @@ const Home = () => {
             <Header />
             <main>
                 <Container>
+                    <MoviesForm />
                     <div className="p-5 bg-secondary-subtle">
                         <p className="p-3 fs-1 fw-bold text-center">The Generics</p>
                         <Button className="d-block m-auto" onClick={fetchMovies}>Fetch Movies</Button>
