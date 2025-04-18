@@ -1,6 +1,9 @@
-import { useParams } from "react-router-dom";
-import Header from "../Layout/Header";
 import { Card, Container } from "react-bootstrap";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+
+import Header from "../Layout/Header";
+import Cart from "../Cart/Cart";
 
 const productsArr = [
     {
@@ -27,13 +30,24 @@ const productsArr = [
 
 const Product = () => {
 
+    const [handleCartShow, setHandleCartShow] = useState(false);
+
+    const showCart = () => {
+        setHandleCartShow(true);
+    }
+
+    const hideCart = () => {
+        setHandleCartShow(false);
+    }
+
     const {productTitle} = useParams();
 
     const product = productsArr.filter(item => item.title === productTitle)[0];
 
     return (
         <>
-            <Header />
+            {handleCartShow && <Cart show={showCart} onHide={hideCart} />}
+            <Header onClick={showCart} />
             <main>
                 <Container>
                     <div className="p-5 bg-secondary-subtle">
