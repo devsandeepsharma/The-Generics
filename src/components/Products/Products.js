@@ -1,6 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap"
 import ProductsItem from "./ProductsItem";
-import { Link } from "react-router-dom";
 
 const productsArr = [
     {
@@ -31,7 +30,7 @@ const Products = () => {
             <Row  className="g-4">
                 {productsArr.map((product) => (
                     <Col key={product.title}>
-                        <Link to={product.title} className="text-decoration-none"><ProductsItem product={product}/></Link>
+                        <ProductsItem product={product}/>
                     </Col>
                 ))}
             </Row>
