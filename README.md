@@ -83,3 +83,14 @@ const { productTitle } = useParams();
 ```js
 { path: "*", element: <NotFound /> }
 ```
+
+## Preview
+
+<img src="./public/preview/1.png" />
+<img src="./public/preview/2.png" />
+<img src="./public/preview/3.png" />
+<img src="./public/preview/4.png" />
+<img src="./public/preview/5.png" />
+<img src="./public/preview/6.png" />
+<img src="./public/preview/7.png" />
+<img src="./public/preview/8.png" />
