@@ -4,6 +4,7 @@ import { Button, Container, Row } from "react-bootstrap";
 import Header from "../Layout/Header";
 import MoviesCard from "../UI/MoviesCard";
 import MoviesForm from "../UI/MoviesForm";
+import Footer from "../Layout/Footer";
 
 const Home = () => {
 
@@ -93,6 +94,7 @@ const Home = () => {
                     </Row>
                 </Container>
             </main> 
+            <Footer />
         </>
     )
 }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import Header from "../Layout/Header";
 import Cart from "../Cart/Cart";
+import Footer from "../Layout/Footer";
 
 const productsArr = [
     {
@@ -72,6 +73,7 @@ const Product = () => {
                     </Card>
                 </Container>
             </main>
+            <Footer />
         </>
     )
 }

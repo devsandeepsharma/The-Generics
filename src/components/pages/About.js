@@ -1,11 +1,12 @@
 import { Container } from "react-bootstrap";
 import Header from "../Layout/Header";
+import Footer from "../Layout/Footer";
 
 const About = () => {
     return (
         <>
             <Header />
-            <main>
+            <main className="min-vh-100">
                 <Container>
                     <h1 className="py-3">About</h1>
                     <div className="pb-3">
@@ -14,6 +15,7 @@ const About = () => {
                     </div>
                 </Container>
             </main> 
+            <Footer />
         </>
     )
 }

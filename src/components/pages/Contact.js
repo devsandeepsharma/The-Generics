@@ -1,6 +1,8 @@
 import { Button, Container, Form } from "react-bootstrap";
-import Header from "../Layout/Header";
 import { useState } from "react";
+
+import Header from "../Layout/Header";
+import Footer from "../Layout/Footer";
 
 const Contact = () => {
 
@@ -74,6 +76,7 @@ const Contact = () => {
                     </Form>
                 </Container>
             </main>
+            <Footer />
         </>
     )
 }
